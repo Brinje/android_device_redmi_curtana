@@ -69,11 +69,6 @@
     -->
      <bool name="config_enableWifiDisplay">false</bool>
 
-    <!-- Whether the display cutout region of the main built-in display should be forced to
-         black in software (to avoid aliasing or emulate a cutout that is not physically existent).
-    -->
-     <bool name="config_fillMainBuiltInDisplayCutout">true</bool>
-
     <!-- Is the device capable of hot swapping an ICC Card -->
      <bool name="config_hotswapCapable">true</bool>
 
@@ -802,23 +797,25 @@
          The user is forbidden from setting the brightness below this level. -->
     <integer name="config_screenBrightnessSettingMinimum">1</integer>
 
-    <!-- Stability requirements in milliseconds for accepting a new brightness level.  This is used
-         for debouncing the light sensor.  Different constants are used to debounce the light sensor
-         when adapting to brighter or darker environments.  This parameter controls how quickly
-         brightness changes occur in response to an observed change in light level that exceeds the
-         hysteresis threshold. -->
-    <integer name="config_autoBrightnessBrighteningLightDebounce">2000</integer>
-    <integer name="config_autoBrightnessDarkeningLightDebounce">4000</integer>
-
-    <!-- Control whether the always on display mode is available. This should only be enabled on
-         devices where the display has been tuned to be power efficient in DOZE and/or DOZE_SUSPEND
-         states. -->
-    <bool name="config_dozeAlwaysOnDisplayAvailable">true</bool>
-
-    <!-- Control whether the always on display mode is enabled by default. This value will be used
-         during initialization when the setting is still null. -->
-    <bool name="config_dozeAlwaysOnEnabled">false</bool>
-     
+    <!-- The bounding path of the cutout region of the main built-in display.
+         Must either be empty if there is no cutout region, or a string that is parsable by
+         {@link android.util.PathParser}.
+         
+         The path is assumed to be specified in display coordinates with pixel units and in
+         the display's native orientation, with the origin of the coordinate system at the
+         center top of the display.
+         
+         To facilitate writing device-independent emulation overlays, the marker `@dp` can be
+         appended after the path string to interpret coordinates in dp instead of px units.
+         Note that a physical cutout should be configured in pixels for the best results.
+    -->
+    <string name="config_mainBuiltInDisplayCutout">M 0,0 H -36 V 100 H 36 V 0 H 0 Z</string>
+    
+    <!-- Whether the display cutout region of the main built-in display should be forced to
+         black in software (to avoid aliasing or emulate a cutout that is not physically existent).
+     -->
+    <bool name="config_fillMainBuiltInDisplayCutout">true</bool>
+    
     <!-- Configure mobile tcp buffer sizes in the form:
          rat-name:rmem_min,rmem_def,rmem_max,wmem_min,wmem_def,wmem_max
          If no value is found for the rat-name in use, the system default will be applied.
