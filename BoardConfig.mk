@@ -63,6 +63,8 @@ ifeq ($(HOST_OS),linux)
 endif
 
 # Display
+TARGET_HAS_WIDE_COLOR_DISPLAY := true
+TARGET_HAS_HDR_DISPLAY := true
 TARGET_USES_HWC2 := true
 
 # DRM
@@ -95,9 +97,9 @@ BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200n8 androidboot.hardware=qcom andro
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_CMDLINE += androidboot.init_fatal_reboot_target=recovery
 TARGET_KERNEL_ARCH := arm64
-BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
-TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image.gz-dtb
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
 ifeq ($(TARGET_PREBUILT_KERNEL),)
+  BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
   TARGET_KERNEL_CONFIG := vendor/curtana_defconfig
   TARGET_KERNEL_CLANG_COMPILE := true
   TARGET_KERNEL_SOURCE := kernel/redmi/sm6250
